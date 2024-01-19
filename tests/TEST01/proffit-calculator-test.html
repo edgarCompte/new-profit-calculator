@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proffit Calculator</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          margin: 0;
+          background-color: #b4aee8;
+        }
+    
+        #container {
+        width: 750px;
+        background-color: #ffffff;
+        border-radius: 15px;
+        padding: 25px;
+        filter: drop-shadow(10px 10px 4px #6e249b);
+        }
+
+        h1.proffit-tittle {
+        color: #93329e;
+        font-size: 22px;
+        margin-bottom: 0px;
+        }
+
+        p.tittle-text {
+    color: #7b7b7b;
+    margin-top: 5px !important;
+    margin-bottom: 22px;
+    font-size: 16px;
+    font-style: italic;
+}
+    
+        form {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+    
+        .column {
+          display: grid;
+          grid-template-rows: repeat(3, auto);
+          gap: 8px;
+        }
+    
+        label {
+    display: block;
+    margin-bottom: 2px;
+    color: #3f4e50;
+    font-weight: 300;
+    font-size: 12px;
+}
+
+      
+        input, select {
+         width: 100%;
+          padding: 2px;
+          border: none;
+          border-bottom: 2px solid #440a67;
+          width: 90%;
+          font-size: 20px;
+          margin-bottom: 8px;
+        }
+    
+        button {
+          grid-column: span 2;
+          background-color: #440a67;
+          color: white;
+          padding: 10px 15px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        #answer{
+          display: none;
+          text-align: center;
+          margin: 25px 0;
+        }
+
+        .tittle-result {
+    color: #93329e;
+    font-weight: bold;
+    font-size: 25px;}
+
+    #savings {
+    font-weight: 200;
+    font-size: 40px;
+    margin: 5px 0;
+    color: #353535;
+}
+.results-text {
+    color: #3f4e50;
+    font-size: 16px;
+    padding: 0 40px;
+}
+
+.increase-text {
+    color: #93329e;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 20px 0 5px 0;
+}
+
+#contact-button{
+  margin: 20px 0 0 0;
+}
+
+#contact-button a{
+  grid-column: span 2;
+  text-decoration: none;
+          background-color: #440a67;
+          color: white;
+          padding: 10px 15px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 12px;
+       
+}
+
+#total-empty-running {
+    color: #353535;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+#costs-outcome{
+    color: #353535;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+#outcome-empty {
+    color: #353535;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+#outcome-costs {
+    color: #353535;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+      </style>
+</head>
+<body>
+
+    <div id="container">
+    <h1 class="proffit-tittle">Calculate your yearly profit by using a freight exchange</h1>
+    <p class="tittle-text">Try our free calculator and discover how much more money you can make</p>
+    <form id="formulario">
+        <div class="column">
+
+        <div class="pcImput">
+        <label for="numero1"><b>How many trucks do you have?</b></label>
+        <input type="number" id="num-trucks" required>
+        </div>
+
+        <div class="pcImput">
+        <label for="numero2"><b>How many km does each truck travel in a year?</b></label>
+        <input type="number" id="num-km" required>
+        </div>
+
+        <div class="pcImput">        
+        <label for="numero3"><b>What is the average speed of your trucks?</b></label>
+        <input type="number" id="num-kmhours" required>
+        </div>
+
+        <div class="pcImput">        
+        <label for="numero3"><b>What % of the total distance is traveled empty?</b></label>
+        <input type="number" id="num-empty" required>
+        </div>
+        </div>
+
+        <div class="column">
+        <div class="pcImput">        
+        <label for="numero3"><b>How many liters of fuel does a truck consume per 100 km?</b></label>
+        <input type="number" id="num-fuelcons" required>
+        </div>
+        <div class="pcImput">        
+        <label for="numero3"><b>What is the current fuel price per liter in Euros?</b> (€/liter)</label>
+        <input type="number" id="num-fuelprice" required>
+        </div>
+        <div class="pcImput">        
+        <label for="numero3"><b>What is the hourly rate for your truck drivers?</b></label>
+        <input type="number" id="num-ratedriver" required>
+        </div>
+        <div class="pcImput">        
+        <label for="numero3"><b>Reduction empty running with TLR/WTN</b> (in %)</label>
+        <input type="number" id="num-reduction" required>
+        </div>
+        </div>
+        <!-- Puedes agregar más campos según tus necesidades -->
+
+        <button type="button" onclick="proffitCalculator()">CALCULATE YOUR PROFFIT</button>
+    </form>
+    <!-- last answers 
+    <div id="total-empty-running"></div>
+    <div id="costs-outcome"></div>
+    <div id="total-fuel-outcome"></div>
+    <div id="total-salary-outcome"></div>
+    <div id="outcome-empty"></div>
+    <div id="outcome-costs"></div>
+    <div id="outcome-fuel"></div>
+    <div id="outcome-salary"></div>
+    <div id="savings"></div>
+    -->
+
+    <div id="answer">
+      <div class="tittle-result">In just 1 year, you save: </div>
+      <div id="savings"></div>
+      <div class="results-text">* Right now, you're covering <span id="total-empty-running"></span> on empty runs, costing you <span id="costs-outcome"></span>. With Teleroute, empty running is reduced to just <span id="outcome-empty"></span>, bringing your cost to <span id="outcome-costs"></span>.
+      </div>
+      <div class="increase-text">Increase your profit starting tomorrow</div>
+      <div class="know-more">Let us show you how</div>
+      <div id="contact-button"><a href="#">GET IN TOUCH</a></div>
+
+    </div>
+
+    <script>
+        function proffitCalculator() {
+            // Take the values from the user entries
+            const numTrucks = parseFloat(document.getElementById("num-trucks").value) || 0;
+            const numKm = parseFloat(document.getElementById("num-km").value) || 0;
+            const numKmHours = parseFloat(document.getElementById("num-kmhours").value) || 0;
+            const numEmpty = parseFloat(document.getElementById("num-empty").value) || 0;
+            const numFuelcons = parseFloat(document.getElementById("num-fuelcons").value) || 0;
+            const numFuelPrice = parseFloat(document.getElementById("num-fuelprice").value) || 0;
+            const numRateDriver = parseFloat(document.getElementById("num-ratedriver").value) || 0;
+            const numReduction = parseFloat(document.getElementById("num-reduction").value) || 0;
+
+            // Operation Maker
+            const porcentaje = numEmpty + "%";
+
+            const TrucksPerKm = numTrucks * numKm;
+            const TotalEmptyRunningCount = (TrucksPerKm * numEmpty) / 100;
+            const TotalEmptyRunningRounded = parseFloat(TotalEmptyRunningCount.toFixed(0));
+            const totalEmptyRunning = TotalEmptyRunningRounded.toLocaleString('en-US');
+
+            const totalFuelCount = (TotalEmptyRunningCount / (100/numFuelcons)) * numFuelPrice;
+            const totalFuelRounded = parseFloat(totalFuelCount.toFixed(0));
+            const totalFuel = totalFuelRounded.toLocaleString('en-US');
+
+            const TotalSalaryCount = (TotalEmptyRunningCount / numKmHours) * numRateDriver;
+            const totalSalaryRounded = parseFloat(TotalSalaryCount.toFixed(0));
+            const totalSalary = totalSalaryRounded.toLocaleString('en-US');
+
+            const totalCostsOutcomeCount = TotalSalaryCount + totalFuelCount;
+            const totalCostOutcomeRounded = parseFloat(totalCostsOutcomeCount.toFixed(0));
+            const totalCostsOutcome = totalCostOutcomeRounded.toLocaleString('en-US');
+
+
+            const percentRest = numEmpty - numReduction;
+            const percentReduction = percentRest / 100;
+            const outcomeEmptyCount = (numKm * (percentReduction)) * numTrucks;
+            const outcomeEmptyCountClean = outcomeEmptyCount
+            const outcomeEmptyRounded = parseFloat(outcomeEmptyCountClean.toFixed(0));
+            const outcomeEmpty = outcomeEmptyRounded.toLocaleString('en-US');
+
+            const outcomeFuelCount = (outcomeEmptyCountClean / (100 / numFuelcons)) * numFuelPrice;
+            const outcomeFuelRounded = parseFloat(outcomeFuelCount.toFixed(0));
+            const outcomeFuel = outcomeFuelRounded.toLocaleString('en-US');
+
+            const outcomeSalaryCount = (outcomeEmptyCountClean / numKmHours) * numRateDriver;
+            const outcomeSalaryRounded = parseFloat(outcomeSalaryCount.toFixed(0));
+            const outcomeSalary = outcomeSalaryRounded.toLocaleString('en-US');
+
+            const outcomeCostsCount = outcomeFuelCount + outcomeSalaryCount;
+            const outcomeCostsRounded = parseFloat(outcomeCostsCount.toFixed(0));
+            const outcomeCosts = outcomeCostsRounded.toLocaleString('en-US');
+
+            const savingCount = totalCostsOutcomeCount - outcomeCostsCount;
+            const savingsRounded = parseFloat(savingCount.toFixed(0));
+            const savings = savingsRounded.toLocaleString('en-US');
+
+
+
+            // Results Shower
+            document.getElementById("total-empty-running").innerText = totalEmptyRunning + ' km';
+            document.getElementById("costs-outcome").innerText = totalCostsOutcome + ' €';
+            //document.getElementById("total-fuel-outcome").innerText = "Fuel: " + totalFuel + " €";
+            //document.getElementById("total-salary-outcome").innerText = "Salary: " + totalSalary + " €";
+
+            document.getElementById("outcome-empty").innerText = outcomeEmpty + ' km';
+            document.getElementById("outcome-costs").innerText =  outcomeCosts  + ' €';;
+            //document.getElementById("outcome-fuel").innerText = "Fuel: " + outcomeFuel + " €";
+            //document.getElementById("outcome-salary").innerText = "Salary: " + outcomeSalary + " €";
+
+            document.getElementById("savings").innerText = savings + ' €';
+
+            document.getElementById("answer");
+            answer.style.display = 'block';
+
+        }
+
+
+    </script>
+</body>
+</html>
+
+
